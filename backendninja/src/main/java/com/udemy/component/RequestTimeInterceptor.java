@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Component("requestTimeInterceptor")
 public class RequestTimeInterceptor extends HandlerInterceptorAdapter {
 
-	private static final Log LOG = LogFactory.getLog(RequestTimeInterceptor.class);
+	private static final Log logger = LogFactory.getLog(RequestTimeInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -25,7 +25,7 @@ public class RequestTimeInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		long startTime = (long) request.getAttribute("startTime");
 
-		LOG.info("--REQUEST URL: '" + request.getRequestURL().toString() + "' -- TOTAL TIME: '"
+		logger.info("--- REQUEST URL: '" + request.getRequestURL().toString() + "' -- TOTAL TIME: '"
 				+ (System.currentTimeMillis() - startTime) + "'ms");
 	}
 
