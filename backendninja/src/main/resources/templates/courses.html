@@ -22,7 +22,8 @@
 				<td><span th:text="${course.description}">Description</span></td>
 				<td><span th:text="${course.price}">Price</span></td>
 				<td><span th:text="${course.hours}">Hours</span></td>
-				<td><form action=""></form></td>
+				<td><form action="" th:action="@{/courses/removecourse}"
+						th:object="${course}" method="post"><input type="submit" value="Eliminar" th:field="${course.name}"/></form></td>
 			</tr>
 		</tbody>
 	</table>

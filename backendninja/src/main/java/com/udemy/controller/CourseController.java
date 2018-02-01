@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.udemy.entity.Course;
+import com.udemy.model.CourseModel;
 import com.udemy.service.CourseService;
 
 @Controller
@@ -39,6 +40,13 @@ public class CourseController {
 	public String addCourse(@ModelAttribute("course") Course course) {
 		logger.info("Call: " + "addCourse() " + "--- Param: " + course.toString());
 		courseService.addCourse(course);
+		return "redirect:/courses/listcourses";
+	}
+
+	@PostMapping("/removecourse")
+	public String removeCourse(@ModelAttribute("course") Course course) {
+		logger.info("Call: " + "removeCourse() " + "--- Param: " + course.toString());
+		courseService.removeCourse(course.getId());
 		return "redirect:/courses/listcourses";
 	}
 
