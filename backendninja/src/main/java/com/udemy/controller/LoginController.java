@@ -5,8 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.udemy.constant.ViewConstant;
@@ -17,34 +15,21 @@ public class LoginController {
 
 	private static Log logger = LogFactory.getLog(LoginController.class);
 
-	@GetMapping("/")
-	public String redirectToLogin() {
-		logger.info("METHOD: redirectToLogin()");
-		return "redirect:/login";
-	}
-
 	@GetMapping("/login")
 	public String showLoginForm(Model model, @RequestParam(name = "error", required = false) String error,
 			@RequestParam(name = "logout", required = false) String logout) {
 		logger.info("METHOD: showLoginForm() -- PARAMS: error=" + error + ", logout=" + logout);
 		model.addAttribute("error", error);
 		model.addAttribute("logout", logout);
-		model.addAttribute("userCredentials", new UserCredential());
 		logger.info("Returning to login view");
 		return ViewConstant.LOGIN;
 	}
 
-	@PostMapping("/logincheck")
-	public String loginCheck(@ModelAttribute(name = "userCredentials") UserCredential userCredential) {
-		logger.info("METHOD: loginCheck() -- PARAMS: " + userCredential.toString());
-
-		if (userCredential.getUsername().equals("user") && userCredential.getPassword().equals("user")) {
-			logger.info("Returning to contacts view");
-			return "redirect:/contacts/showcontacts";
-		}
-
-		logger.info("Redirect to login?error");
-		return "redirect:/login?error";
+	@GetMapping({ "/loginsuccess", "/" })
+	public String loginCheck() {
+		logger.info("METHOD: loginCheck()");
+		logger.info("Returning to contacts view");
+		return "redirect:/contacts/showcontacts";
 	}
 
 }
